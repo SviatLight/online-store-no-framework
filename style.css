@@ -61,6 +61,18 @@ body {
     background-color: #fff;
 }
 
+.category h2{
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.category-item {
+    font-size: .9rem;
+    font-weight: 300;
+    color: #2c2c2c;
+    line-height: 35px;
+}
+
 @media (max-width: 992px) {
     .left-side {
         max-width: 220px;
