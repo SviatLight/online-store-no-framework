@@ -1,6 +1,7 @@
 import CardsList from "./components/cards-list.js"
 import Pagination from "./components/pagination.js";
 import Category from "./components/category.js";
+import DoubleSlider from "./components/double-slider.js"
 
 const BACKEND_URL = 'https://online-store.bootcamp.place/api/';
 
@@ -72,8 +73,11 @@ export default class OnlineStorePage {
     return `
     <div class="container p-0">
       <div class="row">
-        <div class="col left-side">
+        <div class="col left-side p-0">
           <div class="left-side-wrapper">
+            <div id="doubleSliderPrice" class="double-slider-price">
+              <h2>Price</h2>
+            </div>
             <div id="category" class="category">
               <h2>Category</h2>
             </div>
@@ -81,7 +85,12 @@ export default class OnlineStorePage {
             <div id="brand" class="brand">
               <h2>Brand</h2>
             </div>
+            <div class="separate-decor"></div>
+            <div id="doubleSliderRating" class="double-slider-rating">
+              <h2>Rating</h2>
+            </div>
           </div>
+          <button class="btn-clear-filters">Clear all filters</button>
         </div>
         <div class="col right-side p-0">
             <div class="search">
@@ -122,17 +131,29 @@ export default class OnlineStorePage {
       activePageIndex: 0,
       totalPages: totalPages
     });
+    const doubleSliderPrice = new DoubleSlider();
+    const doubleSliderRating = new DoubleSlider({
+      min: 0,
+      max: 5
+    });
+
     console.log(this.components);
     this.components.cardsList = cardsList;
     this.components.pagination = pagination;
+    this.components.doubleSliderPrice = doubleSliderPrice;
+    this.components.doubleSliderRating = doubleSliderRating;
   }
 
   renderComponents () {
     const cardsContainer = this.element.querySelector('[data-element="cardsList"]');
     const paginationContainer = this.element.querySelector('[data-element="pagination"]');
-
+    const doubleSliderPriceContainer = this.element.querySelector('#doubleSliderPrice');
+    const doubleSliderRatingContainer = this.element.querySelector('#doubleSliderRating');
+    
     cardsContainer.append(this.components.cardsList.element);
     paginationContainer.append(this.components.pagination.element);
+    doubleSliderPriceContainer.append(this.components.doubleSliderPrice.element);
+    doubleSliderRatingContainer.append(this.components.doubleSliderRating.element);
   }
 
   render () {
