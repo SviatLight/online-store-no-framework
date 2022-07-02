@@ -11,6 +11,7 @@ export default class OnlineStorePage {
     this.urlProduct = new URL('products', BACKEND_URL);
     this.urlProduct.searchParams.set('_limit', this.pageSize);
     this.urlCategory = new URL('categories', BACKEND_URL);
+    this.urlBrand = new URL('brands', BACKEND_URL);
     this.components = {};
 
     this.initComponents();
@@ -20,7 +21,9 @@ export default class OnlineStorePage {
     this.initEventListeners();
     this.update(1);
     this.loadCategories();
+    this.loadBrands(); 
     this.pushCategories();
+    this.pushBrands();
   }
 
   async loadData (pageNumber) {
@@ -39,12 +42,28 @@ export default class OnlineStorePage {
     return categories;
   }
 
+  async loadBrands () {
+    const response = await fetch(this.urlBrand);
+    const brands = await response.json();
+    console.log(brands);
+    return brands;
+  }
+
   async pushCategories () {
     const categories = await this.loadCategories();
     const category = new Category(categories);
     const categoryContainer = this.element.querySelector('#category');
     
     this.components.category = category;
+    categoryContainer.append(this.components.category.element);
+  }
+
+  async pushBrands () {
+    const brands = await this.loadBrands();
+    const brand = new Category(brands);
+    const categoryContainer = this.element.querySelector('#brand');
+    
+    this.components.category = brand;
     categoryContainer.append(this.components.category.element);
   }
   
@@ -57,6 +76,10 @@ export default class OnlineStorePage {
           <div class="left-side-wrapper">
             <div id="category" class="category">
               <h2>Category</h2>
+            </div>
+            <div class="separate-decor"></div>
+            <div id="brand" class="brand">
+              <h2>Brand</h2>
             </div>
           </div>
         </div>
